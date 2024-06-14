@@ -9,24 +9,22 @@
 		<script src="js/sha.js"></script>
 		<script src="js/jquery-qrcode-0.14.0.min.js"></script>
 		<link rel="shortcut icon" href="img/favico.png">
-		<title>TOTP toolset</title>
+		<title>Outils TOTP</title>
 	</head>
 
 	<body>
 		<div class="container">
 			<form name=frmConvert>
 				<div class="container">
-					<h1 class="display-3">TOTP toolset</h1>
+					<h1 class="display-3">Outils TOTP</h1>
 
 					<div class="card">
 						<div class="card-body">
-							<h5>Features</h5>
+							<h5>Caractéristiques</h5>
 							<blockquote>
 								<ol class="list-group list-group-flush">
-									<li>⏵convert hex seed to base32 format</li>
-									<li>⏵generate QR image based on hex or base32 seed key values</li>
-									<li>⏵generate random seed values (i.e. for programmable tokens or mobile app)</li>
-									<li>⏵verify the time drift with customizable skew value</li>
+									<li>⏵générer une image QR basée sur une clé en base32</li>
+									<li>⏵vérifier la dérive temporelle avec une valeur du nombre personnalisable</li>
 								</oL>
 							</blockquote>
 						</div>
@@ -34,12 +32,13 @@
 					<hr>
 					<div class="row">
 						<div class="col-md-6">
-							<h4>Seed <sup>in base32</sup></h4>
+							<h4>Seed <sup>en base32</sup></h4>
 							<div class="text-center">
-								<div class="alert alert-info">
-
+								<div class="alert alert-danger">
 									<div class="input">
-										<input type="text" size="50" name="secret" id="secret" class="xlarge" value="JBSWY3DPEHPK3PXP" onchange="updateOtp(); return false;" onKeyup="updateOtp(); return false;" onClick="updateOtp(); return false;" />
+										<label for="secret">Clé secrète :</label>
+										<input style="width: 75%; text-align: center;" type="text" name="secret" id="secret" class="xlarge" value="JBSWY3DPEHPK3PXP" onchange="updateOtp(); return false;" onKeyup="updateOtp(); return false;" onClick="updateOtp(); return false;">
+										<p>⚠ La clé secrète ne doit jamais être divulguée publiquement ⚠</p>
 									</div>
 								</div>
 							</div>
@@ -53,38 +52,35 @@
 								</div>
 						</div>
 						<div class="col-md-6">
-							<h4>Information <sup>service & username</sup></h4>
+							<h4>Information <sup>service & nom d'utilisateur</sup></h4>
 							<div class="text-center">
 								<div class="alert alert-info">
 									<div class="input">
-										<label for="service">Service name:</label>
-										<input type="text" size="50" name="service" id="service" class="xlarge" value="SERVICE (VPN)" onchange="updateOtp();   return false; " onKeyup="updateOtp();   return false; " onClick="updateOtp();   return false;  "
-										/>
-										<label for="username">User name:</label>
-										<input type="text" size="50" name="username" id="username" class="xlarge" value="mail@example.org" onchange="updateOtp();   return false; " onKeyup="updateOtp();   return false; " onClick="updateOtp();   return false;  "
-										/>
+									<label for="service">Nom du service :</label>
+									<input style="width: 70%;" type="text" name="service" id="service" class="xlarge" value="VPN/Office etc.." onchange="updateOtp(); return false;" onKeyup="updateOtp(); return false;" onClick="updateOtp(); return false;" >
+									<br>
+									<label for="username">Nom d'utilisateur :</label>
+									<input style="width: 70%;" type="text" name="username" id="username" class="xlarge" value="mail@example.org ou prenom.nom" onchange="updateOtp(); return false;" onKeyup="updateOtp(); return false;" onClick="updateOtp(); return false;">
 									</div>
 								</div>
 							</div>
-							<h4>OTP <sup>verification & drift detection</sup></h4>
+							<h4>OTP <sup>verification & détection de dérive</sup></h4>
 							<div class="alert alert-success" style="min-width:250px">
-								<span style="float:right; font-size:large"><kbd> ⏱ <span style="min-width:5em" id='updatingIn'>--</span></kbd>
-								</span>
-
+								<span style="float:right; font-size:large"><kbd> ⏱ <span style="min-width:5em" id='updatingIn'>--</span></kbd></span>
 								<div class="text-center">
 									<h1><span style="border-style: solid; border-width: 0px; ">&nbsp;&nbsp;&nbsp; <span class="label label-primary" id='otp' ></span> </span></h1>
 								</div>
-
 							</div>
 							<span style="float:right; width:5em">
-								<i  >skew ±</i>
-								<input type=number id=skew class="form-control" min="0"   onchange="updateOtp();   return false; " onKeyup="updateOtp();   return false; " onClick="updateOtp();   return false; " value=3 />
+								<i  >nombre ±</i>
+								<input type=number id=skew class="form-control" min="0"   onchange="updateOtp();   return false; " onKeyup="updateOtp();   return false; " onClick="updateOtp();   return false; " value="1">
 							</span>
 							<div class="label label-primary" id='otp2'> </div>
 						</div>
 					</div>
 				</div>
 				<hr>
+				<!--
 				<div class="row">
 					<div class="col-md-6">
 						<h4>Seed data</h4>
@@ -108,9 +104,10 @@
 						</table>
 					</div>
 				</div>
+				-->
 			</form>
 		</div>
-
+	<p class="text-center">Outil basé sur <a href="https://github.com/token2/totp-toolset-local">Token2 TOTP Toolset - local</a> </p>
 	<script>
 		var base32_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567";
 
@@ -320,7 +317,5 @@
 			setInterval(timer, 1000);
 		});
 	</script>
-
-	<p class="text-center">Based on <a href="https://github.com/token2/totp-toolset-local">Token2 TOTP Toolset - local</a> </p>
 	</body>
 </html>
